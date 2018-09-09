@@ -39,6 +39,16 @@
                 var alpha = (Math.floor(Math.random() * 10) + 1)/10/2;
                 this.color = "rgba(255,255,255," + alpha + ")";
             }
+            
+            function animate()
+            {
+                context.clearRect(0, 0, WIDTH, HEIGHT);
+                for(var i in round)
+                {
+                    round[i].move();
+                }
+                requestAnimateFrome(animate)
+            }
 
             Round_item.prototype.draw = function()
             {
@@ -49,6 +59,14 @@
                 context.closePath();
                 context.fill();
             };
+            
+            Round_item.prototype.move = function()
+            {
+                this.y -= 0.15;
+                if(this.y < -10)
+                    this.y = HEIGHT + 10;
+                this.draw();
+            };
 
             function init()
             {
@@ -57,6 +75,7 @@
                     round[i] = new Round_item(i, Math.random() * WIDTH, Math.random() * HEIGHT);
                     round[i].draw();
                 }
+                aminate();
             }
             
             init();
